@@ -21,35 +21,38 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const initialValue = {username: '', email: ''};
+
 export default function SignupForm() {
   const classes = useStyles();
-  const [firstName, setFirstName] = useState("");
+  const callback = () => {
+    alert(`${value.username}, ${value.email}`)
+  }
+  const {value, clearForm, handleChanges, handleSubmit} = useForm('sign-in', initialValue, callback)
 
-  const handleChanges = e => {
-    setFirstName(e.target.value);
-  };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    alert(firstName);
-  };
 
-  const clearForm = e => {
-    e.preventDefault();
-    setFirstName("");
-  };
-
-  return (
+   return (
     <div p={2} className="form">
       <form onSubmit={handleSubmit}>
         <fieldset>
           <legend>Add New Client</legend>
           <TextField
             id="outlined-name"
-            label="First Name"
+            label="Username"
             className={classes.textField}
-            name="firstName"
-            value={firstName}
+            name="username"
+            value={value.username}
+            onChange={handleChanges}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-name"
+            label="Email"
+            className={classes.textField}
+            name="email"
+            value={value.email}
             onChange={handleChanges}
             margin="normal"
             variant="outlined"
